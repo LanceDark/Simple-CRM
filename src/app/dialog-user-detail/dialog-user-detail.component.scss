@@ -1,0 +1,32 @@
+mat-card {
+  display: flex;
+}
+
+.user-detail-header {
+  min-height: 250px;
+  background-color: darkblue;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  img {
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    padding-left: 12px;
+    padding-bottom: 12px;
+  }
+}
+.user-details {
+  margin-left: 32px;
+  display: fleX;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  height: 100px;
+  padding-bottom: 12px;
+}
+
+h2 {
+  margin-bottom: 0;
+}
