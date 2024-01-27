@@ -40,7 +40,7 @@ export class DialogAddUserComponent {
 
   constructor(
     private firestore: Firestore,
-    public dialogRef: MatDialogRef<DialogAddUserComponent>
+    public dialogRef: MatDialogRef<DialogAddUserComponent>,
   ) {}
 
   async addUser() {

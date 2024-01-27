@@ -1,1 +1,46 @@
-<p>dialog-user-address works!</p>
+<div class="dialog-container">
+  <h1 mat-dialog-title>Edit</h1>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div mat-dialog-content>
+    <div>
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Street + House No.</mat-label>
+          <input
+            [(ngModel)]="user.street"
+            [disabled]="loading"
+            matInput
+            placeholder="Street + House No."
+          />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="mr-16" appearance="outline">
+          <mat-label>City</mat-label>
+          <input
+            [(ngModel)]="user.city"
+            [disabled]="loading"
+            matInput
+            placeholder="City"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Zip code</mat-label>
+          <input
+            [(ngModel)]="user.zipCode"
+            [disabled]="loading"
+            matInput
+            placeholder="Zipcode"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cancel()">Cancel</button>
+      <button mat-button cdkFocusinitial (click)="addUser()">Save</button>
+    </div>
+  </div>
+</div>
