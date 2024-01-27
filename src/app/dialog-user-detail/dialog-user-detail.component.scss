@@ -2,6 +2,12 @@ mat-card {
   display: flex;
 }
 
+.pin-right-upper-corner {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
 .user-detail-header {
   min-height: 250px;
   background-color: darkblue;
