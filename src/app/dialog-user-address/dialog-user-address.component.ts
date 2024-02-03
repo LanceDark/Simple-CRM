@@ -15,6 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { CommonModule } from '@angular/common';
+import { FirebaseServiceService } from '../firebase-service.service';
 
 @Component({
   selector: 'app-dialog-user-address',
@@ -34,14 +35,13 @@ import { CommonModule } from '@angular/common';
 })
 export class DialogUserAddressComponent {
   loading = false;
-  usersCollectionRef = collection(this.firestore, 'users');
   userId: string;
   user: User;
 
   constructor(
     public dialogRef: MatDialogRef<DialogUserAddressComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { userId: string, user: User },
-    private firestore: Firestore
+    @Inject(MAT_DIALOG_DATA) public data: { userId: string; user: User },
+    private firebaseService: FirebaseServiceService
   ) {
     this.userId = data.userId;
     this.user = data.user;
@@ -53,17 +53,13 @@ export class DialogUserAddressComponent {
 
   async addUser() {
     try {
-      console.log(this.firestore, 'users', this.userId)
-      const userDocRef = doc(this.firestore, 'users', this.userId);
-      
       const updatedUserData = {
         street: this.user.street,
         city: this.user.city,
+        zipCode: this.user.zipCode,
       };
 
-      await updateDoc(userDocRef, updatedUserData);
-
-      console.log('Benutzerdaten erfolgreich aktualisiert');
+      await this.firebaseService.editUserData(this.userId, updatedUserData);
       this.cancel();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerdaten', error);

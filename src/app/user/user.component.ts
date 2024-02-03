@@ -16,6 +16,7 @@ import { getFirestore, onSnapshot } from '@angular/fire/firestore';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { FirebaseServiceService } from '../firebase-service.service';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -35,23 +36,13 @@ export class UserComponent implements OnInit {
   user: User = new User();
   allUsers: any[] = [];
 
-  constructor(public dialog: MatDialog, private firestore: Firestore) {}
+  constructor(public dialog: MatDialog, private firestore: Firestore, private firebaseService: FirebaseServiceService) {}
 
   openDialog() {
     this.dialog.open(DialogAddUserComponent);
   }
 
   ngOnInit() {
-    const userCollection = collection(this.firestore, 'users');
-
-    onSnapshot(userCollection, (querySnapshot) => {
-      this.allUsers = [];
-      querySnapshot.forEach((doc) => {
-        let userData = doc.data();
-        userData['id'] = doc.id;
-        this.allUsers.push(userData);
-        console.log(this.allUsers);
-      });
-    });
+    this.firebaseService.getCollection('users', this.allUsers);
   }
 }

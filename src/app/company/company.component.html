@@ -23,3 +23,11 @@
     </mat-grid-tile>
   </mat-grid-list>
 </mat-card>
+
+<tr *ngFor= "let company of allCompanys">
+    <td>{{company.companyName}}</td>
+    <td>{{company.addDate}}</td>
+    <td>{{company.street}}</td>
+    <td>{{company.zipCode}}</td>
+    <td>{{company.city}}</td>
+</tr>
