@@ -13,9 +13,9 @@ import {
 })
 export class FirebaseServiceService {
   constructor(private fs: Firestore) {}
-  getData() {
-    let notesCollection = collection(this.fs, 'users');
-    return collectionData(notesCollection, {idField: 'id'});
+  getData(item: string) {
+    let notesCollection = collection(this.fs, item);
+    return collectionData(notesCollection, { idField: 'id' });
   }
 
   addUser(desc: string) {
@@ -25,7 +25,7 @@ export class FirebaseServiceService {
   }
 
   deleteUser(id: string) {
-    let docRef = doc(this.fs, 'users/'+id);
+    let docRef = doc(this.fs, 'users/' + id);
     return deleteDoc(docRef);
   }
 }

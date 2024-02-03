@@ -44,6 +44,8 @@ import { FirebaseServiceService } from './firebase-service.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
+
+
 export class AppComponent {
   title = 'simple-crm';
   firestore: Firestore = Inject(Firestore);
@@ -70,7 +72,7 @@ export class AppComponent {
   }
 
   refreshUser() {
-    this.service.getData().subscribe((res) => {
+    this.service.getData('users').subscribe((res) => {
       res.push(this.users);
     });
   }
