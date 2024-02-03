@@ -49,9 +49,11 @@ export class DialogUserHeaderComponent {
 
   cancel() {
     this.dialogRef.close();
+    this.loading = false;
   }
 
   async addUser() {
+    this.loading = true;
     try {
       console.log(this.firestore, 'users', this.userId);
       const userDocRef = doc(this.firestore, 'users', this.userId);
@@ -65,6 +67,7 @@ export class DialogUserHeaderComponent {
       await updateDoc(userDocRef, updatedUserData);
 
       console.log('Benutzerdaten erfolgreich aktualisiert');
+      this.cancel();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerdaten', error);
     }

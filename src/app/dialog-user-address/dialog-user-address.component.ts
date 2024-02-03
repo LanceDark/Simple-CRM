@@ -64,6 +64,7 @@ export class DialogUserAddressComponent {
       await updateDoc(userDocRef, updatedUserData);
 
       console.log('Benutzerdaten erfolgreich aktualisiert');
+      this.cancel();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerdaten', error);
     }

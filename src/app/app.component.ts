@@ -1,7 +1,6 @@
 import { Component, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
-
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -19,6 +18,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FirebaseServiceService } from './firebase-service.service';
 
 @Component({
   selector: 'app-root',
@@ -47,8 +47,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class AppComponent {
   title = 'simple-crm';
   firestore: Firestore = Inject(Firestore);
+  users: any = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private service: FirebaseServiceService
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       const firebaseConfig = {
         apiKey: 'AIzaSyCTEGRdV2N4sQVofiAnAzLnqTiUmfXroM4',
@@ -60,9 +64,19 @@ export class AppComponent {
         measurementId: 'G-8MPMJP7W68',
       };
 
-      // Initialize Firebase only in a browser environment
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
     }
+  }
+
+  refreshUser() {
+    this.service.getData().subscribe((res) => {
+      res.push(this.users);
+    });
+  }
+
+  ngOnInit(): void {
+    this.refreshUser();
+    console.log(this.users);
   }
 }
